@@ -59,7 +59,11 @@ class SwiftVariablesParser: Parseable {
         }
 
         let file = File(path: FileManager.default.currentDirectoryPath + "/Natrium.swift")
-        try file.write(data: data)
+
+        let currentData = try file.read()
+        if currentData != data {
+            try file.write(data: data)
+        }
     }
 
     private func _variable(_ keyValue: (key: String, value: Yaml)) -> String {
